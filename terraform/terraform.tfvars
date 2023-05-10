@@ -1,6 +1,3 @@
-# the only field you really need to change is the project_id
-project_id = "storied-oasis-386217"
-
 # below variables should be changed if there's a conflict with your existing environment
 region = "us-central1"
 zone = "us-central1-c"
