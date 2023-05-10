@@ -1,8 +1,30 @@
 import psycopg2
+from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
 from faker import Faker
 
-# Create a connection to the PostgreSQL database
-conn = psycopg2.connect("host=localhost dbname=sampledb user=postgres password=mypassword")
+# Connect to the PostgreSQL server as the default postgres user
+conn = psycopg2.connect("host=localhost user=postgres password=welcome1")
+
+# Set the isolation level to autocommit to allow database creation
+conn.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)
+
+# Create a cursor object
+cur = conn.cursor()
+
+# Check if the `sampledb` database exists
+cur.execute("SELECT datname FROM pg_catalog.pg_database WHERE datname='sampledb'")
+exists = cur.fetchone()
+
+if not exists:
+    # Create the `sampledb` database
+    cur.execute("CREATE DATABASE sampledb")
+
+# Close the cursor and connection to the PostgreSQL server
+cur.close()
+conn.close()
+
+# Connect to the `sampledb` database
+conn = psycopg2.connect("host=localhost dbname=sampledb user=postgres password=welcome1")
 
 # Create a cursor object
 cur = conn.cursor()
