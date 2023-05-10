@@ -39,8 +39,7 @@ create_table = """
     CREATE TABLE sampletable1 (
         id INT,
         name VARCHAR(255),
-        email VARCHAR(255),
-        lastupdate TIMESTAMP
+        email VARCHAR(255)
     )
 """
 cur.execute(create_table)
@@ -48,7 +47,7 @@ cur.execute(create_table)
 # Generate 1GB of data inside the `sampletable1` table
 fake = Faker()
 for i in range(1000):
-    cur.execute("INSERT INTO sampletable1 (id, name, email, lastupdate) VALUES (%s, %s, %s, %s)", (i, fake.name(), fake.email(), fake.date_time()))
+    cur.execute("INSERT INTO sampletable1 (id, name, email) VALUES (%s, %s, %s)", (i, fake.name(), fake.email()))
 
 # Commit the changes to the database
 conn.commit()
